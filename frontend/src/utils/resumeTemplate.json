@@ -1,0 +1,163 @@
+{
+  "personalDetails": {
+    "isVisible": true,
+    "fullName": "",
+    "professionalTitle": "",
+    "email": "",
+    "phone": "",
+    "location": "",
+    "linkedin": "",
+    "github": "",
+    "portfolio": "",
+    "summary": ""
+  },
+
+  "education": {
+    "isVisible": true,
+    "entries": [
+      {
+        "school": "",
+        "degree": "",
+        "startDate": "",
+        "endDate": "",
+        "location": "",
+        "cgpa": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "skills": {
+    "isVisible": true,
+    "entries": [
+      {
+        "domain": "",
+        "subSkills": "",
+        "skillLevel": "BEGINNER",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "projects": {
+    "isVisible": true,
+    "entries": [
+      {
+        "projectTitle": "",
+        "projectLink": "",
+        "subTitle": "",
+        "startDate": "",
+        "endDate": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "certificates": {
+    "isVisible": true,
+    "entries": [
+      {
+        "certificateName": "",
+        "additionalInfo": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "interests": {
+    "isVisible": true,
+    "entries": [
+      {
+        "interest": "",
+        "additionalInfo": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "experience": {
+    "isVisible": true,
+    "entries": [
+      {
+        "employer": "",
+        "jobTitle": "",
+        "employmentType": "",
+        "startDate": "",
+        "endDate": "",
+        "location": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "languages": {
+    "isVisible": true,
+    "entries": [
+      {
+        "language": "",
+        "additionalInfo": "",
+        "languageLevel": "BASIC",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "courses": {
+    "isVisible": true,
+    "entries": [
+      {
+        "courseTitle": "",
+        "institution": "",
+        "startDate": "",
+        "endDate": "",
+        "location": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "organizations": {
+    "isVisible": true,
+    "entries": [
+      {
+        "orgName": "",
+        "position": "",
+        "startDate": "",
+        "endDate": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "publications": {
+    "isVisible": true,
+    "entries": [
+      {
+        "title": "",
+        "publisher": "",
+        "date": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  },
+
+  "achievements": {
+    "isVisible": true,
+    "entries": [
+      {
+        "title": "",
+        "issuer": "",
+        "date": "",
+        "location": "",
+        "description": "",
+        "isVisible": true
+      }
+    ]
+  }
+}
