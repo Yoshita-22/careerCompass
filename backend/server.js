@@ -22,6 +22,14 @@ app.use(ClerkExpressWithAuth());
 // Connect DB
 connectDB(process.env.MONGO_URI);
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    message: "Backend is healthy",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 // Routes
 app.use("/api/resumes", resumeRoutes);
 app.use("/generate-pdf", pdfGeneratorRoute); // Perfect
