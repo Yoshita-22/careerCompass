@@ -133,7 +133,7 @@ const { getToken, userId } = useAuth();
 
     const token = await getToken();
     await axios.put(
-      `http://localhost:5000/api/resumes/${resumeId}`,
+      `https://careercompass-backend-kjl8.onrender.com/api/resumes/${resumeId}`,
       { resumeData: resumeTemplate },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -153,7 +153,7 @@ useEffect(() => {
 
     try {
       const token = await getToken();
-      const res = await axios.get(`http://localhost:5000/api/resumes/${resumeId}`, {
+      const res = await axios.get(`https://careercompass-backend-kjl8.onrender.com/api/resumes/${resumeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
