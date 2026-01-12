@@ -8,7 +8,7 @@ const router = express.Router();
 
 /* ---------------------- 🔧 HELPERS ---------------------- */
 
-// ✅ Extract valid JSON object from Gemini response text (More Robust)
+//  Extract valid JSON object from Gemini response text (More Robust)
 function extractJson(text) {
   // 1. Remove Markdown code fences and any surrounding whitespace
   let cleanText = text.trim();
@@ -18,7 +18,7 @@ function extractJson(text) {
   const match = cleanText.match(/\{[\s\S]*\}/);
   
   if (!match) {
-    console.warn("⚠️ extractJson failed: No curly braces found.");
+    console.warn("extractJson failed: No curly braces found.");
     return null;
   }
   
@@ -26,13 +26,13 @@ function extractJson(text) {
   try {
     return JSON.parse(match[0]);
   } catch (err) {
-    console.warn("⚠️ JSON parse error:", err.message);
-    console.warn("⚠️ Problematic text (start):", match[0].slice(0, 200) + "...");
+    console.warn("JSON parse error:", err.message);
+    console.warn("Problematic text (start):", match[0].slice(0, 200) + "...");
     return null;
   }
 }
 
-// ✅ Remove duplicates and normalize capitalization
+// Remove duplicates and normalize capitalization
 function dedupeAndNormalize(keywords) {
   const seen = new Map();
   for (const k of keywords || []) {
@@ -43,7 +43,7 @@ function dedupeAndNormalize(keywords) {
   return Array.from(seen.values());
 }
 
-/* ---------------------- 🚀 MAIN ROUTE ---------------------- */
+/* ----------------------  MAIN ROUTE ---------------------- */
 
 router.post("/", async (req, res) => {
   const { jd } = req.body;
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
     return res.status(400).json({ error: "Job description missing." });
   }
 
-  // 🧠 Strong, structured prompt — now limiting output to prevent MAX_TOKENS
+  // Strong, structured prompt — now limiting output to prevent MAX_TOKENS
   const prompt = `
 You are an AI keyword extractor.
 Return ONLY VALID JSON (no explanations, no markdown).
@@ -113,7 +113,7 @@ Return ONLY valid JSON.
 
     const data = await response.json();
 
-    // 🛑 1. Check for explicit API errors (e.g., Invalid API Key, Rate Limit)
+    // 1. Check for explicit API errors (e.g., Invalid API Key, Rate Limit)
     if (data.error) {
       console.error(" Gemini API returned an error:", data.error.message);
       throw new Error(`Gemini API Error: ${data.error.message}`);
@@ -121,9 +121,9 @@ Return ONLY valid JSON.
 
     const candidates = data?.candidates;
 
-    // 🛑 2. Check for missing candidates array
+    // 2. Check for missing candidates array
     if (!candidates || candidates.length === 0) {
-        console.error("❌ Gemini API returned no candidates. Check API Key and Quota.");
+        console.error("Gemini API returned no candidates. Check API Key and Quota.");
         console.error("Full Response Body:", JSON.stringify(data));
         throw new Error("API returned no content candidates.");
     }
@@ -154,14 +154,14 @@ Return ONLY valid JSON.
 
     //  Retry once if invalid JSON
     if (!parsed?.keywords) {
-      console.warn("⚠️ First parse failed. Retrying once...");
+      console.warn("First parse failed. Retrying once...");
       text = await callGemini();
       parsed = extractJson(text);
     }
 
     //  Still invalid after retry → fail gracefully
     if (!parsed?.keywords) {
-      console.error("❌ Gemini returned invalid JSON twice.");
+      console.error("Gemini returned invalid JSON twice.");
       return res.status(200).json({ keywords: [] }); // return empty, not error
     }
 
@@ -169,7 +169,7 @@ Return ONLY valid JSON.
     const cleaned = dedupeAndNormalize(parsed.keywords);
     res.json({ keywords: cleaned });
   } catch (err) {
-    console.error("❌ Gemini API/Network error:", err.message);
+    console.error("Gemini API/Network error:", err.message);
     res.status(500).json({ error: "Failed to extract keywords due to internal or API error." });
   }
 });

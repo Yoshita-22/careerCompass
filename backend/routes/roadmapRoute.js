@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
 
-/* ---------------------- 🔧 HELPERS ---------------------- */
+/* ----------------------  HELPERS ---------------------- */
 
 /**
  * Attempts to extract and parse a JSON object from text,
@@ -25,7 +25,7 @@ function safeJsonParse(text) {
     const match = cleanText.match(/\{[\s\S]*\}/);
     
     if (!match) {
-        console.warn("⚠️ safeJsonParse failed: No JSON object found.");
+        console.warn("safeJsonParse failed: No JSON object found.");
         return null;
     }
     
@@ -33,14 +33,14 @@ function safeJsonParse(text) {
         // 3. Attempt to parse the matched content
         return JSON.parse(match[0]);
     } catch (err) {
-        console.warn("⚠️ JSON parse error:", err.message);
-        console.warn("⚠️ Problematic text (start):", match[0].slice(0, 500) + "...");
+        console.warn(" JSON parse error:", err.message);
+        console.warn("Problematic text (start):", match[0].slice(0, 500) + "...");
         return null;
     }
 }
 
 // Helper function to handle the API call logic
-// ⭐ DEFAULT MODEL CHANGED TO 'gemini-2.5-pro' for robust task handling
+//  DEFAULT MODEL CHANGED TO 'gemini-2.5-pro' for robust task handling
 async function fetchGemini(prompt, maxTokens, modelName = 'gemini-2.5-flash') {
     if (!process.env.GEMINI_API_KEY) {
         throw new Error("API Key Missing");
@@ -72,14 +72,14 @@ async function fetchGemini(prompt, maxTokens, modelName = 'gemini-2.5-flash') {
     
     // Log for debugging if truncation occurs
     if (data.usageMetadata?.totalTokenCount > maxTokens) {
-        console.warn(`⚠️ Warning: Max tokens likely hit on this call. Model: ${modelName}`);
+        console.warn(` Warning: Max tokens likely hit on this call. Model: ${modelName}`);
     }
 
     return safeJsonParse(text);
 }
 
 
-/* ---------------------- 🚀 MAIN ROUTE ---------------------- */
+/* ---------------------- MAIN ROUTE ---------------------- */
 router.post("/", async (req, res) => {
     const { jobDescription, resume, duration } = req.body;
 
@@ -105,7 +105,7 @@ Resume: """${resume}"""
         const analysisResult = await fetchGemini(analysisPrompt, 512);
 
         if (!analysisResult?.missing_skills || analysisResult.missing_skills.length === 0) {
-            console.error("❌ Failed to identify missing skills.");
+            console.error(" Failed to identify missing skills.");
             console.error("Raw Analysis Failure Data:", analysisResult);
             return res.json({ roadmap: [], error: "Could not identify skill gaps for roadmap creation." });
         }
@@ -147,7 +147,7 @@ Return ONLY valid JSON in this schema:
 
         // ------------------ 3. VALIDATE AND RESPOND ------------------
         if (!roadmapResult?.roadmap) {
-            console.error("❌ Roadmap generation failed or returned invalid structure.");
+            console.error(" Roadmap generation failed or returned invalid structure.");
             // Log the raw data here to see why the final structure failed
             console.error("Raw Roadmap Failure Data:", roadmapResult);
             return res.json({ roadmap: [] });
@@ -155,7 +155,7 @@ Return ONLY valid JSON in this schema:
 
         res.json(roadmapResult);
     } catch (err) {
-        console.error("❌ Gemini API error (Caught by try/catch):", err.message);
+        console.error("Gemini API error (Caught by try/catch):", err.message);
         res.status(500).json({ error: "Failed to generate roadmap due to an internal or API error." });
     }
 });

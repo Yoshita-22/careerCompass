@@ -20,7 +20,7 @@ router.get("/", ClerkExpressRequireAuth(), async (req, res) => {
 
 
 
-// ✅ Save or update resume
+// Save or update resume
 router.post("/", ClerkExpressRequireAuth(), async (req, res) => {
   try {
     const { userId } = req.auth; // Clerk injects this from JWT
@@ -34,14 +34,14 @@ router.post("/", ClerkExpressRequireAuth(), async (req, res) => {
       return res.status(400).json({ message: "Missing resume data" });
     }
 
-    // 🔍 Check if resume already exists for the same user + title
+    // Check if resume already exists for the same user + title
     const existing = await Resume.findOne({ userId, title });
 
     if (existing) {
       existing.resumeData = resumeData;
       existing.lastUpdated = new Date();
       await existing.save();
-      return res.json({ message: "✅ Resume updated successfully", resume: existing });
+      return res.json({ message: "Resume updated successfully", resume: existing });
     }
 
     // 🆕 Create new resume document
@@ -52,11 +52,11 @@ router.post("/", ClerkExpressRequireAuth(), async (req, res) => {
     });
 
     res.status(201).json({
-      message: "✅ Resume created successfully",
+      message: "Resume created successfully",
       resume: newResume,
     });
   } catch (err) {
-    console.error("❌ Error saving resume:", err);
+    console.error("Error saving resume:", err);
     res.status(500).json({
       message: "Internal Server Error",
       error: err.message,

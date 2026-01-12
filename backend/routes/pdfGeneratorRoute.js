@@ -4,7 +4,7 @@ import puppeteer from "puppeteer";
 const router = express.Router();
 
 // POST route to generate PDF
-router.post("/", async (req, res) => {   // ✅ route is now just "/"
+router.post("/", async (req, res) => {   // route is now just "/"
   const { html } = req.body;
 
   if (!html) {
