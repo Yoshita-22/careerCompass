@@ -12,7 +12,7 @@ export default function MyResumes() {
   useEffect(() => {
     const fetchResumes = async () => {
       const token = await getToken();
-      const res = await axios.get("http://localhost:5000/api/resumes", {
+      const res = await axios.get("https://careercompass-backend-kjl8.onrender.com/api/resumes", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setResumes(res.data);
@@ -25,7 +25,7 @@ export default function MyResumes() {
     if (!title) return;
     const token = await getToken();
     const res = await axios.post(
-      "http://localhost:5000/api/resumes",
+      "https://careercompass-backend-kjl8.onrender.com/api/resumes",
       { title, resumeData: {} },
       { headers: { Authorization: `Bearer ${token}` } }
     );
