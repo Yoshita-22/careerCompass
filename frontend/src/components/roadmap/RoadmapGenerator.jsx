@@ -79,16 +79,16 @@ export default function RoadmapGenerator() {
                 <div key={i} className="bg-gray-100 p-4 rounded-lg shadow-sm">
                   <h3 className="font-bold text-lg mb-1">{phase.week}</h3>
                   <p className="text-indigo-700 font-semibold mb-2">
-                    🎯 {phase.focus}
+                     {phase.focus}
                   </p>
                   <ul className="list-disc pl-5 text-sm text-gray-800">
                     {phase.topics?.map((t, j) => <li key={j}>{t}</li>)}
                   </ul>
                   <p className="mt-2 text-sm text-gray-600">
-                    📘 Resources: {phase.resources?.join(", ")}
+                    Resources: {phase.resources?.join(", ")}
                   </p>
                   <p className="mt-1 text-sm font-medium text-gray-700">
-                    🏁 Goal: {phase.goal}
+                     Goal: {phase.goal}
                   </p>
                 </div>
               ))}

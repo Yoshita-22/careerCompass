@@ -4,10 +4,10 @@ import { useAuth } from "@clerk/clerk-react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
-// 1️⃣ Create the context
+// 1️ Create the context
 const ResumeContext = createContext();
 
-// 2️⃣ Provider component
+// 2️ Provider component
 export const ResumeProvider = ({ children }) => {
    const [resumeId, setResumeId] = useState(null);
 const setCurrentResumeId = (id) => setResumeId(id);
@@ -62,7 +62,7 @@ const setCurrentResumeId = (id) => setResumeId(id);
  
   });
 
-  // 3️⃣ Function to update a specific section
+  // 3️ Function to update a specific section
   const updateSection = (sectionName, data) => {
     setResumeTemplate((prev) => ({
       ...prev,
@@ -70,7 +70,7 @@ const setCurrentResumeId = (id) => setResumeId(id);
     }));
   };
 
-  // 4️⃣ Function to reset everything (optional)
+  // 4️ Function to reset everything (optional)
   const resetResume = () => {
     setResumeTemplate({
   personalDetails: {},
@@ -127,7 +127,7 @@ const { getToken, userId } = useAuth();
     console.log(resumeId);
   try {
     if (!resumeId) {
-      console.error("❌ No resume ID found in URL!");
+      console.error("No resume ID found in URL!");
       return;
     }
 
@@ -149,7 +149,7 @@ const [isLoading, setIsLoading] = useState(true);
 useEffect(() => {
   const loadResume = async () => {
     if (!resumeId) return; // wait until resumeId is available
-    setIsLoading(true); // ✅ mark start
+    setIsLoading(true); //  mark start
 
     try {
       const token = await getToken();
@@ -159,14 +159,14 @@ useEffect(() => {
 
       if (res.data && res.data.resumeData) {
         setResumeTemplate(res.data.resumeData);
-        console.log("✅ Resume data loaded successfully!");
+        console.log("Resume data loaded successfully!");
       } else {
-        console.warn("⚠️ No resume data found for this ID.");
+        console.warn("No resume data found for this ID.");
       }
     } catch (err) {
-      console.error("❌ Error loading resume:", err);
+      console.error("Error loading resume:", err);
     } finally {
-      setIsLoading(false); // ✅ mark end
+      setIsLoading(false); // mark end
     }
   };
 
@@ -182,5 +182,5 @@ useEffect(() => {
   );
 };
 
-// 5️⃣ Custom hook for easy access
+// 5️Custom hook for easy access
 export const useResume = () => useContext(ResumeContext);

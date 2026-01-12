@@ -7,7 +7,7 @@ export const DownloadPdf = async () => {
   }
 
   try {
-    // ✅ Extract ALL active styles (Tailwind + custom)
+    //  Extract ALL active styles (Tailwind + custom)
     const styles = Array.from(document.styleSheets)
       .map((sheet) => {
         try {
@@ -21,7 +21,7 @@ export const DownloadPdf = async () => {
       })
       .join("");
 
-    // ✅ Construct full HTML with styles included
+    //  Construct full HTML with styles included
     const html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -35,7 +35,7 @@ export const DownloadPdf = async () => {
       </html>
     `;
 
-    // ✅ Send styled HTML to Puppeteer backend
+    //  Send styled HTML to Puppeteer backend
     const response = await fetch("http://localhost:5000/generate-pdf", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ export const DownloadPdf = async () => {
 
     if (!response.ok) throw new Error("PDF generation failed");
 
-    // ✅ Handle PDF blob download
+    //  Handle PDF blob download
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
